@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống Đăng Ký Xác Thực OTP</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f4f7f6; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        .card { 
+            background: white; 
+            padding: 35px 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+            width: 100%; 
+            max-width: 400px; 
+        }
+        h2 { text-align: center; margin-bottom: 10px; color: #333; }
+        .subtitle { text-align: center; font-size: 13px; color: #777; margin-bottom: 25px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 7px; color: #555; font-size: 14px; font-weight: 600; }
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-sizing: border-box; 
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+        input:focus { border-color: #4CAF50; outline: none; }
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background-color: #4CAF50; 
+            border: none; 
+            color: white; 
+            font-size: 16px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            margin-top: 10px; 
+            transition: background 0.3s;
+        }
+        button:hover { background-color: #45a049; }
+        .hidden { display: none; }
+        .msg { text-align: center; font-weight: bold; margin-top: 20px; font-size: 14px; line-height: 1.4; }
+        .note { font-size: 12px; color: #999; margin-top: 5px; display: block; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="form-register">
+        <h2>Đăng Ký Hệ Thống</h2>
+        <p class="subtitle">Vui lòng điền thông tin bên dưới để nhận mã OTP</p>
+        
+        <div class="form-group">
+            <label>Họ và tên</label>
+            <input type="text" id="username" placeholder="Ví dụ: Nguyễn Văn A" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Email nhận OTP</label>
+            <input type="text" id="contact-input" placeholder="Nhập địa chỉ email của bạn" required>
+            <span class="note">* Hệ thống chỉ chấp nhận: Gmail, mail.google.com, Outlook và Hotmail.</span>
+        </div>
+        
+        <button onclick="sendOTP()">Gửi mã OTP</button>
+    </div>
+
+    <div id="form-otp" class="hidden">
+        <h2>Xác Thực OTP</h2>
+        <p class="subtitle" id="otp-target-text">Vui lòng kiểm tra email để lấy mã.</p>
+        
+        <div class="form-group">
+            <label>Mã OTP (6 chữ số)</label>
+            <input type="text" id="otp-input" placeholder="X X X X X X" maxlength="6" style="text-align: center; font-size: 22px; letter-spacing: 6px; font-weight: bold;" required>
+        </div>
+        
+        <button onclick="verifyOTP()">Xác Nhận & Đăng Ký</button>
+    </div>
+
+    <div id="message" class="msg"></div>
+</div>
+
+<script>
+    let savedContact = "";
+
+    // Gửi yêu cầu đăng ký và cấp OTP lên localhost
+    async function sendOTP() {
+        const username = document.getElementById('username').value.trim();
+        savedContact = document.getElementById('contact-input').value.trim();
+        const msgDiv = document.getElementById('message');
+
+        if (!username || !savedContact) {
+            alert("Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+
+        msgDiv.style.color = "#ff9800";
+        msgDiv.innerText = "Đang xác thực và gửi OTP...";
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/send-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: username, contact: savedContact })
+            });
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                msgDiv.style.color = "green";
+                msgDiv.innerText = data.message;
+                
+                // Cập nhật text hiển thị và chuyển form nhập mã OTP
+                document.getElementById('otp-target-text').innerText = `Mã OTP đã được gửi đến: ${savedContact}`;
+                document.getElementById('form-register').classList.add('hidden');
+                document.getElementById('form-otp').classList.remove('hidden');
+            } else {
+                msgDiv.style.color = "red";
+                msgDiv.innerText = data.message;
+            }
+        } catch (error) {
+            msgDiv.style.color = "red";
+            msgDiv.innerText = "Lỗi: Không thể kết nối tới Server Python (Hãy chắc chắn app.py đang chạy)!";
+        }
+    }
+
+    // Gửi mã OTP người dùng nhập lên để đối chiếu dữ liệu
+    async function verifyOTP() {
+        const otpValue = document.getElementById('otp-input').value.trim();
+        const msgDiv = document.getElementById('message');
+
+        if (!otpValue) {
+            alert("Vui lòng nhập mã OTP!");
+            return;
+        }
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/verify-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contact: savedContact, otp: otpValue })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                msgDiv.style.color = "green";
+                msgDiv.innerText = "🎉 " + data.message;
+                document.getElementById('form-otp').classList.add('hidden'); // Ẩn luôn form nhập mã khi thành công
+            } else {
+                msgDiv.style.color = "red";
+                msgDiv.innerText = data.message;
+            }
+        } catch (error) {
+            msgDiv.style.color = "red";
+            msgDiv.innerText = "Lỗi kết nối hệ thống backend!";
+        }
+    }
+</script>
+
+</body>
+</html>
