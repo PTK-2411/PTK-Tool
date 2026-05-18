@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ thống Đăng Ký Xác Thực OTP</title>
+    <title>Hệ thống Xác thực OTP - GitHub Pages</title>
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -64,7 +64,7 @@
         
         <div class="form-group">
             <label>Họ và tên</label>
-            <input type="text" id="username" placeholder="Ví dụ: Nguyễn Văn A" required>
+            <input type="text" id="username" placeholder="Ví dụ: Phạm Tấn Khoa" required>
         </div>
         
         <div class="form-group">
@@ -93,8 +93,10 @@
 
 <script>
     let savedContact = "";
+    // ĐỊA CHỈ BACKEND: Trỏ trực tiếp về localhost máy tính của bạn
+    const BACKEND_URL = "http://127.0.0.1:5000";
 
-    // Gửi yêu cầu đăng ký và cấp OTP lên localhost
+    // Gửi yêu cầu đăng ký và cấp OTP lên localhost máy bạn
     async function sendOTP() {
         const username = document.getElementById('username').value.trim();
         savedContact = document.getElementById('contact-input').value.trim();
@@ -106,10 +108,10 @@
         }
 
         msgDiv.style.color = "#ff9800";
-        msgDiv.innerText = "Đang xác thực và gửi OTP...";
+        msgDiv.innerText = "Đang xác thực bộ lọc và gửi OTP...";
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/send-otp', {
+            const response = await fetch(`${BACKEND_URL}/send-otp`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: username, contact: savedContact })
@@ -121,7 +123,6 @@
                 msgDiv.style.color = "green";
                 msgDiv.innerText = data.message;
                 
-                // Cập nhật text hiển thị và chuyển form nhập mã OTP
                 document.getElementById('otp-target-text').innerText = `Mã OTP đã được gửi đến: ${savedContact}`;
                 document.getElementById('form-register').classList.add('hidden');
                 document.getElementById('form-otp').classList.remove('hidden');
@@ -131,7 +132,7 @@
             }
         } catch (error) {
             msgDiv.style.color = "red";
-            msgDiv.innerText = "Lỗi: Không thể kết nối tới Server Python (Hãy chắc chắn app.py đang chạy)!";
+            msgDiv.innerText = "Lỗi: Không thể kết nối tới Server Python! Hãy chắc chắn file app.py đang chạy dưới máy bạn.";
         }
     }
 
@@ -146,7 +147,7 @@
         }
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/verify-otp', {
+            const response = await fetch(`${BACKEND_URL}/verify-otp`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ contact: savedContact, otp: otpValue })
@@ -157,14 +158,14 @@
             if (response.ok) {
                 msgDiv.style.color = "green";
                 msgDiv.innerText = "🎉 " + data.message;
-                document.getElementById('form-otp').classList.add('hidden'); // Ẩn luôn form nhập mã khi thành công
+                document.getElementById('form-otp').classList.add('hidden'); 
             } else {
                 msgDiv.style.color = "red";
                 msgDiv.innerText = data.message;
             }
         } catch (error) {
             msgDiv.style.color = "red";
-            msgDiv.innerText = "Lỗi kết nối hệ thống backend!";
+            msgDiv.innerText = "Lỗi kết nối đến hệ thống backend cục bộ!";
         }
     }
 </script>
