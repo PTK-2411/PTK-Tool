@@ -4,16 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ thống Xác thực OTP - GitHub Pages</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3683159396264838" crossorigin="anonymous"></script>
+    
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             background-color: #f4f7f6; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
             margin: 0; 
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
+
+        /* Container chính chia bố cục thành 3 cột: Quảng cáo trái | Form Giữa | Quảng cáo phải */
+        .main-container {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Khu vực quảng cáo 2 bên */
+        .ads-sidebar {
+            width: 160px; /* Độ rộng tiêu chuẩn cho banner dọc (Skyscraper) */
+            min-height: 600px;
+            background: rgba(0, 0, 0, 0.02); /* Đổ nền mờ để nhận diện khu vực test */
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Form đăng ký ở giữa */
         .card { 
             background: white; 
             padding: 35px 30px; 
@@ -21,7 +48,9 @@
             box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
             width: 100%; 
             max-width: 400px; 
+            box-sizing: border-box;
         }
+        
         h2 { text-align: center; margin-bottom: 10px; color: #333; }
         .subtitle { text-align: center; font-size: 13px; color: #777; margin-bottom: 25px; }
         .form-group { margin-bottom: 20px; }
@@ -53,50 +82,79 @@
         .hidden { display: none; }
         .msg { text-align: center; font-weight: bold; margin-top: 20px; font-size: 14px; line-height: 1.4; }
         .note { font-size: 12px; color: #999; margin-top: 5px; display: block; }
+
+        /* Ẩn bớt quảng cáo trên màn hình điện thoại để tránh đè giao diện */
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                justify-content: center;
+            }
+            .ads-sidebar {
+                display: none; 
+            }
+        }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div id="form-register">
-        <h2>Đăng Ký Hệ Thống</h2>
-        <p class="subtitle">Vui lòng điền thông tin bên dưới để nhận mã OTP</p>
-        
-        <div class="form-group">
-            <label>Họ và tên</label>
-            <input type="text" id="username" placeholder="Username" required>
-        </div>
-        
-        <div class="form-group">
-            <label>Email nhận OTP</label>
-            <input type="text" id="contact-input" placeholder="Nhập địa chỉ email của bạn" required>
-            <span class="note">* Hệ thống chỉ chấp nhận: Gmail, mail.google.com, Outlook và Hotmail.</span>
-        </div>
-        
-        <button onclick="sendOTP()">Gửi mã OTP</button>
+<div class="main-container">
+    <div class="ads-sidebar">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-3683159396264838"
+             data-ad-slot="1234567890" data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
     </div>
 
-    <div id="form-otp" class="hidden">
-        <h2>Xác Thực OTP</h2>
-        <p class="subtitle" id="otp-target-text">Vui lòng kiểm tra email để lấy mã.</p>
-        
-        <div class="form-group">
-            <label>Mã OTP (6 chữ số)</label>
-            <input type="text" id="otp-input" placeholder="X X X X X X" maxlength="6" style="text-align: center; font-size: 22px; letter-spacing: 6px; font-weight: bold;" required>
+    <div class="card">
+        <div id="form-register">
+            <h2>Đăng Ký Hệ Thống</h2>
+            <p class="subtitle">Vui lòng điền thông tin bên dưới để nhận mã OTP</p>
+            
+            <div class="form-group">
+                <label>Họ và tên</label>
+                <input type="text" id="username" placeholder="Username" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Email nhận OTP</label>
+                <input type="text" id="contact-input" placeholder="Nhập địa chỉ email của bạn" required>
+                <span class="note">* Hệ thống chỉ chấp nhận: Gmail, mail.google.com, Outlook và Hotmail.</span>
+            </div>
+            
+            <button onclick="sendOTP()">Gửi mã OTP</button>
         </div>
-        
-        <button onclick="verifyOTP()">Xác Nhận & Đăng Ký</button>
+
+        <div id="form-otp" class="hidden">
+            <h2>Xác Thực OTP</h2>
+            <p class="subtitle" id="otp-target-text">Vui lòng kiểm tra email để lấy mã.</p>
+            
+            <div class="form-group">
+                <label>Mã OTP (6 chữ số)</label>
+                <input type="text" id="otp-input" placeholder="X X X X X X" maxlength="6" style="text-align: center; font-size: 22px; letter-spacing: 6px; font-weight: bold;" required>
+            </div>
+            
+            <button onclick="verifyOTP()">Xác Nhận & Đăng Ký</button>
+        </div>
+
+        <div id="message" class="msg"></div>
     </div>
 
-    <div id="message" class="msg"></div>
+    <div class="ads-sidebar">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-3683159396264838"
+             data-ad-slot="0987654321" data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+    </div>
 </div>
 
 <script>
     let savedContact = "";
-    // ĐỊA CHỈ BACKEND: Trỏ trực tiếp về localhost máy tính của bạn
     const BACKEND_URL = "http://127.0.0.1:5000";
 
-    // Gửi yêu cầu đăng ký và cấp OTP lên localhost máy bạn
     async function sendOTP() {
         const username = document.getElementById('username').value.trim();
         savedContact = document.getElementById('contact-input').value.trim();
@@ -136,7 +194,6 @@
         }
     }
 
-    // Gửi mã OTP người dùng nhập lên để đối chiếu dữ liệu
     async function verifyOTP() {
         const otpValue = document.getElementById('otp-input').value.trim();
         const msgDiv = document.getElementById('message');
