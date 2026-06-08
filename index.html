@@ -18,7 +18,7 @@
             min-height: 100vh;
         }
 
-        /* Container chính chia bố cục thành 3 cột: Quảng cáo trái | Form Giữa | Quảng cáo phải */
+        /* Container chính chia bố cục thành 3 cột */
         .main-container {
             display: flex;
             width: 100%;
@@ -28,19 +28,21 @@
             align-items: center;
             padding: 20px;
             box-sizing: border-box;
-        }
-
-        /* Khu vực quảng cáo 2 bên */
-        .ads-sidebar {
-            width: 160px; /* Độ rộng tiêu chuẩn cho banner dọc (Skyscraper) */
-            min-height: 600px;
-            background: rgba(0, 0, 0, 0.02); /* Đổ nền mờ để nhận diện khu vực test */
-            display: flex;
-            flex-direction: column;
             gap: 20px;
         }
 
-        /* Form đăng ký ở giữa */
+        /* Khu vực hai thanh dải quảng cáo bên trái và bên phải */
+        .ads-sidebar {
+            width: 160px; /* Chiều rộng tiêu chuẩn cho quảng cáo dạng Skyscraper dọc */
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        /* Form đăng ký chính ở giữa */
         .card { 
             background: white; 
             padding: 35px 30px; 
@@ -83,8 +85,8 @@
         .msg { text-align: center; font-weight: bold; margin-top: 20px; font-size: 14px; line-height: 1.4; }
         .note { font-size: 12px; color: #999; margin-top: 5px; display: block; }
 
-        /* Ẩn bớt quảng cáo trên màn hình điện thoại để tránh đè giao diện */
-        @media (max-width: 768px) {
+        /* Tự động ẩn 2 thanh dải quảng cáo trên màn hình điện thoại nhỏ để tránh vỡ giao diện */
+        @media (max-width: 820px) {
             .main-container {
                 flex-direction: column;
                 justify-content: center;
@@ -100,11 +102,14 @@
 <div class="main-container">
     <div class="ads-sidebar">
         <ins class="adsbygoogle"
-             style="display:block"
+             style="display:block; width:100%; height:600px;"
              data-ad-client="ca-pub-3683159396264838"
-             data-ad-slot="1234567890" data-ad-format="auto"
+             data-ad-slot="THAY_MÃ_SLOT_THẬT_CỘT_TRÁI_TẠI_ĐÂY"
+             data-ad-format="vertical"
              data-full-width-responsive="true"></ins>
-        <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
 
     <div class="card">
@@ -143,11 +148,14 @@
 
     <div class="ads-sidebar">
         <ins class="adsbygoogle"
-             style="display:block"
+             style="display:block; width:100%; height:600px;"
              data-ad-client="ca-pub-3683159396264838"
-             data-ad-slot="0987654321" data-ad-format="auto"
+             data-ad-slot="THAY_MÃ_SLOT_THẬT_CỘT_PHẢI_TẠI_ĐÂY"
+             data-ad-format="vertical"
              data-full-width-responsive="true"></ins>
-        <script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
 </div>
 
