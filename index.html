@@ -1,260 +1,258 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ thống Xác thực OTP - GitHub Pages</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3683159396264838" crossorigin="anonymous"></script>
-    
-    <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: #f4f7f6; 
-            margin: 0; 
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        /* Container chính chia bố cục thành 3 cột */
-        .main-container {
-            display: flex;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-            gap: 25px;
-        }
-
-        /* Thanh sidebar hai bên chứa các ô quảng cáo vuông xếp chồng */
-        .ads-sidebar {
-            width: 160px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 20px; /* Tạo khoảng cách 20px giữa các ô vuông xếp chồng */
-            box-sizing: border-box;
-        }
-
-        /* Form đăng ký chính ở giữa */
-        .card { 
-            background: white; 
-            padding: 35px 30px; 
-            border-radius: 10px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
-            width: 100%; 
-            max-width: 400px; 
-            box-sizing: border-box;
-        }
-        
-        h2 { text-align: center; margin-bottom: 10px; color: #333; }
-        .subtitle { text-align: center; font-size: 13px; color: #777; margin-bottom: 25px; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 7px; color: #555; font-size: 14px; font-weight: 600; }
-        input { 
-            width: 100%; 
-            padding: 12px; 
-            border: 1px solid #ccc; 
-            border-radius: 5px; 
-            box-sizing: border-box; 
-            font-size: 14px;
-            transition: border 0.3s;
-        }
-        input:focus { border-color: #4CAF50; outline: none; }
-        button { 
-            width: 100%; 
-            padding: 12px; 
-            background-color: #4CAF50; 
-            border: none; 
-            color: white; 
-            font-size: 16px; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            margin-top: 10px; 
-            transition: background 0.3s;
-        }
-        button:hover { background-color: #45a049; }
-        .hidden { display: none; }
-        .msg { text-align: center; font-weight: bold; margin-top: 20px; font-size: 14px; line-height: 1.4; }
-        .note { font-size: 12px; color: #999; margin-top: 5px; display: block; }
-
-        /* Tự động ẩn toàn bộ quảng cáo sidebar trên màn hình điện thoại nhỏ */
-        @media (max-width: 820px) {
-            .main-container {
-                flex-direction: column;
-                justify-content: center;
-            }
-            .ads-sidebar {
-                display: none; 
-            }
-        }
-    </style>
-</head>
-<body>
-
-<div class="main-container">
-    
-    <div class="ads-sidebar">
-        <ins class="adsbygoogle"
-             style="display:inline-block; width:160px; height:160px;"
-             data-ad-client="ca-pub-3683159396264838"
-             data-ad-slot="3420243552"
-             data-ad-format="square"
-             data-full-width-responsive="false"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-
-        <ins class="adsbygoogle"
-             style="display:inline-block; width:160px; height:160px;"
-             data-ad-client="ca-pub-3683159396264838"
-             data-ad-slot="3420243552"
-             data-ad-format="square"
-             data-full-width-responsive="false"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-
-    <div class="card">
-        <div id="form-register">
-            <h2>Đăng Ký Hệ Thống</h2>
-            <p class="subtitle">Vui lòng điền thông tin bên dưới để nhận mã OTP</p>
-            
-            <div class="form-group">
-                <label>Họ và tên</label>
-                <input type="text" id="username" placeholder="Username" required>
-            </div>
-            
-            <div class="form-group">
-                <label>Email nhận OTP</label>
-                <input type="text" id="contact-input" placeholder="Nhập địa chỉ email của bạn" required>
-                <span class="note">* Hệ thống chỉ chấp nhận: Gmail, mail.google.com, Outlook và Hotmail.</span>
-            </div>
-            
-            <button onclick="sendOTP()">Gửi mã OTP</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Admin Dashboard Using HTML CSS & JavaScript</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <aside>
+        <div class="top">
+          <div class="logo">
+            <img
+              src="black_logo.png"
+              style="filter: invert(100%)"
+              alt="White Logo"
+              class="logo-light"
+            />
+            <img src="black_logo.png" alt="Black Logo" class="logo-dark" />
+          </div>
+          <div class="close" id="close-btn">
+            <span class="material-icons-sharp">close</span>
+          </div>
         </div>
 
-        <div id="form-otp" class="hidden">
-            <h2>Xác Thực OTP</h2>
-            <p class="subtitle" id="otp-target-text">Vui lòng kiểm tra email để lấy mã.</p>
-            
-            <div class="form-group">
-                <label>Mã OTP (6 chữ số)</label>
-                <input type="text" id="otp-input" placeholder="X X X X X X" maxlength="6" style="text-align: center; font-size: 22px; letter-spacing: 6px; font-weight: bold;" required>
-            </div>
-            
-            <button onclick="verifyOTP()">Xác Nhận & Đăng Ký</button>
+        <div class="sidebar">
+          <a href="#" class="active">
+            <span class="material-icons-sharp">grid_view</span>
+            <h3>Dashboard</h3>
+          </a>
+          <a href="#">
+            <span class="material-icons-sharp">person_outline</span>
+            <h3>Khách hàng</h3>
+          </a>
+          <a href="#">
+            <span class="material-icons-sharp">receipt_long</span>
+            <h3>Đơn hàng</h3>
+          </a>
+          <a href="#">
+            <span class="material-icons-sharp">insights</span>
+            <h3>Phân tích</h3>
+          </a>
+          <a href="#">
+            <span class="material-icons-sharp">mail_outline</span>
+            <h3>Tin nhắn</h3>
+            <span class="message-count">26</span>
+          </a>
+          <a href="#">
+            <span class="material-icons-sharp">inventory</span>
+            <h3>Sản phẩm</h3>
+          </a>
+          <a href="#">
+            <span class="material-icons-sharp">report_gmailerrorred</span>
+            <h3>Báo cáo</h3>
+          </a>
+          <a href="#">
+            <span class="material-icons-sharp">settings</span>
+            <h3>Cài đặt</h3>
+          </a>
+          <a href="#">
+            <span class="material-icons-sharp">add</span>
+            <h3>Thêm sản phẩm</h3>
+          </a>
+          <a href="#">
+            <span class="material-icons-sharp">logout</span>
+            <h3>Đăng xuất</h3>
+          </a>
+        </div>
+      </aside>
+
+      <main>
+        <h1>Dashboard</h1>
+
+        <div class="date">
+          <input type="date" />
         </div>
 
-        <div id="message" class="msg"></div>
+        <div class="insights">
+          <div class="sales">
+            <span class="material-icons-sharp">trending_up</span>
+            <div class="middle">
+              <div class="left">
+                <h3>Tổng Doanh Số</h3>
+                <h1>$25,024</h1>
+              </div>
+              <div class="progress">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="number">
+                  <p>81%</p>
+                </div>
+              </div>
+            </div>
+            <small class="text-muted">Trong 24 giờ qua</small>
+          </div>
+
+          <div class="expenses">
+            <span class="material-icons-sharp">bar_chart</span>
+            <div class="middle">
+              <div class="left">
+                <h3>Tổng Chi Phí</h3>
+                <h1>$14,160</h1>
+              </div>
+              <div class="progress">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="number">
+                  <p>62%</p>
+                </div>
+              </div>
+            </div>
+            <small class="text-muted">Trong 24 giờ qua</small>
+          </div>
+
+          <div class="income">
+            <span class="material-icons-sharp">stacked_line_chart</span>
+            <div class="middle">
+              <div class="left">
+                <h3>Tổng Thu Nhập</h3>
+                <h1>$10,864</h1>
+              </div>
+              <div class="progress">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="number">
+                  <p>44%</p>
+                </div>
+              </div>
+            </div>
+            <small class="text-muted">Trong 24 giờ qua</small>
+          </div>
+        </div>
+
+        <div class="recent-orders">
+          <h2>Đơn hàng gần đây</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Tên sản phẩm</th>
+                <th>Mã sản phẩm</th>
+                <th>Thanh toán</th>
+                <th>Trạng thái</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <a href="#">Hiển thị tất cả</a>
+        </div>
+      </main>
+
+      <div class="right">
+        <div class="top">
+          <button id="menu-btn">
+            <span class="material-icons-sharp">menu</span>
+          </button>
+          <div class="theme-toggler">
+            <span class="material-icons-sharp active">light_mode</span>
+            <span class="material-icons-sharp">dark_mode</span>
+          </div>
+          <div class="profile">
+            <div class="info">
+              <p>Chào, <b>Daniel</b></p>
+              <small class="text-muted">Admin</small>
+            </div>
+            <div class="profile-photo">
+              <img src="./images/profile-1.jpg" alt="Profile" />
+            </div>
+          </div>
+        </div>
+
+        <div class="recent-updates">
+          <h2>Cập nhật gần đây</h2>
+          <div class="updates">
+            <div class="update">
+              <div class="profile-photo">
+                <img src="./images/profile-2.jpg" alt="Profile" />
+              </div>
+              <div class="message">
+                <p><b>Mike Tyson</b> đã nhận được đơn hàng drone GPS 4K.</p>
+                <small class="text-muted">2 phút trước</small>
+              </div>
+            </div>
+            <div class="update">
+              <div class="profile-photo">
+                <img src="./images/profile-3.jpg" alt="Profile" />
+              </div>
+              <div class="message">
+                <p><b>Diana Prince</b> đã hủy đơn hàng áo thun.</p>
+                <small class="text-muted">5 phút trước</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sales-analytics">
+          <h2>Phân tích bán hàng</h2>
+          <div class="item online">
+            <div class="icon">
+              <span class="material-icons-sharp">shopping_cart</span>
+            </div>
+            <div class="right">
+              <div class="info">
+                <h3>ĐƠN HÀNG ONLINE</h3>
+                <small class="text-muted">Trong 24 giờ qua</small>
+              </div>
+              <h5 class="success">+39%</h5>
+              <h3>3849</h3>
+            </div>
+          </div>
+          <div class="item offline">
+            <div class="icon">
+              <span class="material-icons-sharp">local_mall</span>
+            </div>
+            <div class="right">
+              <div class="info">
+                <h3>ĐƠN HÀNG OFFLINE</h3>
+                <small class="text-muted">Trong 24 giờ qua</small>
+              </div>
+              <h5 class="danger">-17%</h5>
+              <h3>1100</h3>
+            </div>
+          </div>
+          <div class="item customers">
+            <div class="icon">
+              <span class="material-icons-sharp">person</span>
+            </div>
+            <div class="right">
+              <div class="info">
+                <h3>KHÁCH HÀNG MỚI</h3>
+                <small class="text-muted">Trong 24 giờ qua</small>
+              </div>
+              <h5 class="success">+25%</h5>
+              <h3>849</h3>
+            </div>
+          </div>
+          <div class="item add-product">
+            <div>
+              <span class="material-icons-sharp">add</span>
+              <h3>Thêm sản phẩm</h3>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="ads-sidebar">
-        <ins class="adsbygoogle"
-             style="display:inline-block; width:160px; height:160px;"
-             data-ad-client="ca-pub-3683159396264838"
-             data-ad-slot="3420243552"
-             data-ad-format="square"
-             data-full-width-responsive="false"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-
-        <ins class="adsbygoogle"
-             style="display:inline-block; width:160px; height:160px;"
-             data-ad-client="ca-pub-3683159396264838"
-             data-ad-slot="3420243552"
-             data-ad-format="square"
-             data-full-width-responsive="false"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-</div>
-
-<script>
-    let savedContact = "";
-    const BACKEND_URL = "http://127.0.0.1:5000";
-
-    async function sendOTP() {
-        const username = document.getElementById('username').value.trim();
-        savedContact = document.getElementById('contact-input').value.trim();
-        const msgDiv = document.getElementById('message');
-
-        if (!username || !savedContact) {
-            alert("Vui lòng nhập đầy đủ thông tin!");
-            return;
-        }
-
-        msgDiv.style.color = "#ff9800";
-        msgDiv.innerText = "Đang xác thực bộ lọc và gửi OTP...";
-
-        try {
-            const response = await fetch(`${BACKEND_URL}/send-otp`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: username, contact: savedContact })
-            });
-
-            const data = await response.json();
-            
-            if (response.ok) {
-                msgDiv.style.color = "green";
-                msgDiv.innerText = data.message;
-                
-                document.getElementById('otp-target-text').innerText = `Mã OTP đã được gửi đến: ${savedContact}`;
-                document.getElementById('form-register').classList.add('hidden');
-                document.getElementById('form-otp').classList.remove('hidden');
-            } else {
-                msgDiv.style.color = "red";
-                msgDiv.innerText = data.message;
-            }
-        } catch (error) {
-            msgDiv.style.color = "red";
-            msgDiv.innerText = "Lỗi: Không thể kết nối tới Server Python! Hãy chắc chắn file app.py đang chạy dưới máy bạn.";
-        }
-    }
-
-    async function verifyOTP() {
-        const otpValue = document.getElementById('otp-input').value.trim();
-        const msgDiv = document.getElementById('message');
-
-        if (!otpValue) {
-            alert("Vui lòng nhập mã OTP!");
-            return;
-        }
-
-        try {
-            const response = await fetch(`${BACKEND_URL}/verify-otp`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contact: savedContact, otp: otpValue })
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                msgDiv.style.color = "green";
-                msgDiv.innerText = "🎉 " + data.message;
-                document.getElementById('form-otp').classList.add('hidden'); 
-            } else {
-                msgDiv.style.color = "red";
-                msgDiv.innerText = data.message;
-            }
-        } catch (error) {
-            msgDiv.style.color = "red";
-            msgDiv.innerText = "Lỗi kết nối đến hệ thống backend cục bộ!";
-        }
-    }
-</script>
-
-</body>
+    <script src="orders.js"></script>
+    <script src="index.js"></script>
+  </body>
 </html>
